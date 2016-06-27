@@ -1,0 +1,14 @@
+name: redstone_mongo
+description: A starting point for Dart libraries or applications.
+version: 0.0.1
+#author: Ravi Teja Gudapati <email@example.com>
+#homepage: https://www.example.com
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dependencies:
+  mongo_dart:
+  connection_pool:
+  redstone:
+  redstone_mapper: 0.2.0-beta.1
