@@ -6,6 +6,7 @@ library redstone_mongo.src;
 import 'dart:async';
 
 import 'package:redstone_mapper/mapper.dart' as mapper;
+import 'package:redstone_mapper/database.dart' as mapperDb;
 
 import 'package:redstone/redstone.dart' as app;
 

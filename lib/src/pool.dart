@@ -4,7 +4,9 @@ part of redstone_mongo.src;
 class Pool extends ConnectionPool<mgo.Db> {
   String uri;
 
-  Pool(String this.uri, int poolSize) : super(poolSize) {}
+  Pool(String this.uri, int poolSize) : super(poolSize) {
+    print("Creating pool ...");
+  }
 
   @override
   Future<mgo.Db> openNewConnection() {
@@ -13,7 +15,7 @@ class Pool extends ConnectionPool<mgo.Db> {
   }
 
   @override
-  void closeConnection(mgo.Db conn) {
-    conn.close();
+  closeConnection(mgo.Db conn) async {
+    await conn.close();
   }
 }
