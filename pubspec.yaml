@@ -11,4 +11,5 @@ dependencies:
   mongo_dart:
   connection_pool:
   redstone:
-  redstone_mapper: 0.2.0-beta.1
+  redstone_mapper:
+    path: ../redstone_mapper
