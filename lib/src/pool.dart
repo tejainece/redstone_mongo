@@ -11,7 +11,7 @@ class Pool extends ConnectionPool<mgo.Db> {
   @override
   Future<mgo.Db> openNewConnection() {
     var conn = new mgo.Db(uri);
-    return conn.open().then((_) => conn);
+    return conn.open(writeConcern: mgo.WriteConcern.JOURNALED).then((_) => conn);
   }
 
   @override
