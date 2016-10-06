@@ -4,14 +4,20 @@ part of redstone_mongo.src;
 class Pool extends ConnectionPool<mgo.Db> {
   String uri;
 
-  Pool(String this.uri, int poolSize) : super(poolSize) {
+  final mgo.WriteConcern _defaultWriteConcern;
+
+  Pool(String this.uri, int poolSize,
+      {mgo.WriteConcern writeConcern: mgo.WriteConcern.ACKNOWLEDGED})
+      : super(poolSize), _defaultWriteConcern = writeConcern {
     print("Creating pool ...");
   }
 
   @override
   Future<mgo.Db> openNewConnection() {
     var conn = new mgo.Db(uri);
-    return conn.open(writeConcern: mgo.WriteConcern.JOURNALED).then((_) => conn);
+    return conn
+        .open(writeConcern: _defaultWriteConcern)
+        .then((_) => conn);
   }
 
   @override

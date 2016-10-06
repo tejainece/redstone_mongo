@@ -49,13 +49,18 @@ class Mgo {
 class DbManager implements mapperDb.DatabaseManager<Mgo> {
   Pool _pool;
 
+  final mgo.WriteConcern _defaultWriteConcern;
+
   /// Creates a new MongoDbManager
   ///
   /// [uri] a MongoDB uri, and [poolSize] is the number of connections
   /// that will be created.
-  DbManager(String uri, {int poolSize: 3}) {
+  DbManager(String uri,
+      {int poolSize: 3,
+      mgo.WriteConcern writeConcern: mgo.WriteConcern.ACKNOWLEDGED})
+      : _defaultWriteConcern = writeConcern {
     print("Creating DBManager ...");
-    _pool = new Pool(uri, poolSize);
+    _pool = new Pool(uri, poolSize, writeConcern: _defaultWriteConcern);
   }
 
   @override
@@ -67,8 +72,7 @@ class DbManager implements mapperDb.DatabaseManager<Mgo> {
   @override
   void closeConnection(Mgo connection, {error}) {
     var invalidConn = error is mgo.ConnectionException;
-    _pool.releaseConnection(
-        connection._managedConn,
+    _pool.releaseConnection(connection._managedConn,
         markAsInvalid: invalidConn);
   }
 }
